@@ -49,9 +49,9 @@ module.exports = function (grunt) {
       gruntfile: {
         files: ['Gruntfile.js']
       },
-      recess: {
+      less: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.less'],
-        tasks: ['recess:dist']
+        tasks: ['less:dist']
       },
       livereload: {
         options: {
@@ -298,15 +298,15 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
-        'recess',
+        'less',
         'copy:styles'
       ],
       test: [
-        'recess',
+        'less',
         'copy:styles'
       ],
       dist: [
-        'recess',
+        'less',
         'copy:styles',
         'imagemin',
         'svgmin'
@@ -347,11 +347,11 @@ module.exports = function (grunt) {
       }
     },
 
-    recess: {
-      options: {
-        compile: true
-      },
-      dist: {
+    less: {
+      development: {
+        options: {
+          compress: true,  //minifying the result
+        },
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>/styles',
@@ -360,7 +360,7 @@ module.exports = function (grunt) {
           ext: '.css'
         }]
       }
-    }
+    },
   });
 
 
